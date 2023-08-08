@@ -100,7 +100,7 @@ def _checkin(telegram_id):
     if botuser.sign_time and botuser.sign_time.date() == datetime.today().date():
         return '你今天已经签到过了，明天再来哦'
 
-    num = random.randint(1024, 2048)
+    num = random.randint(-350, 1024)
     flow = num * 1024 * 1024
     botuser.v2_user.transfer_enable += flow
     botuser.sign_time = datetime.now()
@@ -152,7 +152,7 @@ def _lucky(telegram_id):
     # 检查抽奖间隔时间
     if botuser.lucky_time and (datetime.now() - botuser.lucky_time).seconds < 3600:
         return f'请{3600 - (datetime.now() - botuser.lucky_time).seconds}秒后再来抽奖哦!'
-    num = random.randint(-10240, 10240)
+    num = random.randint(-1024, 512)
     flow = num * 1024 * 1024
     botuser.v2_user.transfer_enable += flow
     botuser.lucky_time = datetime.now()
