@@ -27,7 +27,7 @@
 如果在aaPanel面板上部署，推荐克隆到/www/wwwroot目录下
 
 ```bash
-git clone https://github.com/v2boardbot/v2boardbot.git
+git clone https://github.com/kogekiplay/v2boardbot.git
 ```
 
 #### 1.2 安装依赖
