@@ -44,7 +44,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         reply_markup = InlineKeyboardMarkup(start_keyboard)
     # await context.bot.send_message(chat_id=update.effective_chat.id, text='my Bot', reply_markup=reply_markup)
-    await update.message.reply_text('尊敬的用户，欢迎使用v2boardbot\n"春风不写失意，梦醒仍寻旧忆。"', reply_markup=reply_markup)
+    await update.message.reply_text('尊敬的用户，欢迎使用Kogeki私房菜\n"春风不写失意，梦醒仍寻旧忆。"', reply_markup=reply_markup)
     return START_ROUTES
 
 
@@ -53,7 +53,7 @@ async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     reply_markup = InlineKeyboardMarkup(start_keyboard)
     # await context.bot.send_message(chat_id=update.effective_chat.id, text='my Bot', reply_markup=reply_markup)
-    await query.edit_message_text('尊敬的用户，欢迎使用v2boardbot\n"春风不写失意，梦醒仍寻旧忆。"', reply_markup=reply_markup)
+    await query.edit_message_text('尊敬的用户，欢迎使用Kogeki私房菜\n"春风不写失意，梦醒仍寻旧忆。"', reply_markup=reply_markup)
     return START_ROUTES
 
 
