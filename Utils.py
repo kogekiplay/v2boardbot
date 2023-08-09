@@ -47,6 +47,9 @@ async def slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message.dice:
         await update.message.reply_text(text='你发送的不是🎰表情，此局无效')
         return ConversationHandler.END
+    if update.message.forward_date: # 新增的判断条件
+        await update.message.reply_text(text='请不要作弊！')
+        return ConversationHandler.END
     if traffic < 1:
         await update.message.reply_text(text='你的流量已不足1GB，无法进行游戏')
         return ConversationHandler.END
