@@ -35,7 +35,7 @@ async def command_bind(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             token = context.args[0].split('token=')[-1]
         except:
-            text = '参数错误'
+            text = '参数错误，格式为\n/bind 订阅链接'
             await update.message.reply_text(text=text, reply_markup=reply_markup)
             return START_ROUTES
     text = _bind(token, update.effective_user.id)
