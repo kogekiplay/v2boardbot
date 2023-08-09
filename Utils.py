@@ -58,7 +58,7 @@ async def delete_both_messages(update, context):
     bot_message_id = context.bot_data['bot_message_id']
     bot_chat_id = context.bot_data['bot_chat_id']
     # 获取bot在当前聊天中的状态
-    bot_status = context.bot.get_chat_member(chat_id=user_chat_id, user_id=context.bot.id)
+    bot_status = await context.bot.get_chat_member(chat_id=user_chat_id, user_id=context.bot.id)
     # 判断bot是否有删除消息的权限
     if bot_status.can_delete_messages:
         # 如果有，就等待5秒
