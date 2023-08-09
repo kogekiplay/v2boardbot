@@ -99,10 +99,13 @@ async def slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
 
     traffic = v2_user.transfer_enable / 1024**3
+    upload = v2_user.u / 1024**3
+    download = v2_user.d / 1024**3
+    overage = traffic - upload - download
     if not update.message.dice:
         await update.message.reply_text(text="你发送的不是🎰表情，此局无效")
         return ConversationHandler.END
-    if traffic < 1:
+    if overage < 1:
         bot_message = await update.message.reply_text(text="你的流量已不足1GB，无法进行游戏")
         # 保存bot消息的id和chat id到context.bot_data中
         context.bot_data["bot_message_id"] = bot_message.message_id
