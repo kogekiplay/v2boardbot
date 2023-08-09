@@ -82,6 +82,11 @@ async def delete_both_messages(update, context):
                 chat_id=user_chat_id, message_id=user_message_id
             ),
             context.bot.delete_message(chat_id=bot_chat_id, message_id=bot_message_id),
+            # 删除bot发出的骰子消息
+            context.bot.delete_message(
+                chat_id=context.bot_data["dice_chat_id"],
+                message_id=context.bot_data["dice_message_id"],
+            ),
         )
     else:
         # 如果没有，就打印一个警告信息
@@ -138,6 +143,9 @@ async def slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif update.message.dice.emoji == "🎲":
         user = update.message.dice.value
         bot_message = await update.message.reply_dice(emoji="🎲")
+        # 保存bot发出的骰子消息的id和chat id到context.bot_data中
+        context.bot_data["dice_message_id"] = bot_message.message_id
+        context.bot_data["dice_chat_id"] = bot_message.chat_id
         bot = bot_message.dice.value
         if bot > user:
             v2_user.transfer_enable -= 1024**3
