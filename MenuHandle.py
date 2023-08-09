@@ -10,7 +10,7 @@ from telegram.ext import (
 
 from config import SLOT_MACHINE, DICE_RATE
 from keyboard import return_keyboard
-from v2board import _bind, _checkin, _traffic, _lucky, _sub, _node, _wallet,_mysub
+from v2board import _bind, _checkin, _traffic, _lucky, _sub, _node, _wallet, _mysub
 from Utils import START_ROUTES, END_ROUTES, WAITING_INPUT
 
 
@@ -22,10 +22,9 @@ async def menu_addtime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text='请输入发送需要添加的时长，单位：天', reply_markup=reply_markup
-    )
-    return 'addtime'
+    await query.edit_message_text(text="请输入发送需要添加的时长，单位：天", reply_markup=reply_markup)
+    return "addtime"
+
 
 # 老虎机
 async def menu_slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -36,9 +35,11 @@ async def menu_slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(
-        text=f'请发送🎰或🎲表情，可以连续发送\n当前赔率:🎰1赔{SLOT_MACHINE} 🎲1赔{DICE_RATE}\n发送"不玩了"退出赌博模式', reply_markup=reply_markup
+        text=f'请发送🎰或🎲表情，可以连续发送\n当前赔率:🎰1赔{SLOT_MACHINE} 🎲1赔{DICE_RATE}\n发送"不玩了"退出赌博模式',
+        reply_markup=reply_markup,
     )
     return WAITING_INPUT
+
 
 # 钱包
 async def menu_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -49,9 +50,7 @@ async def menu_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
 
@@ -64,9 +63,7 @@ async def menu_checkin(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
 
@@ -78,14 +75,13 @@ async def menu_sub(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
+
 async def menu_mysub(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_message.chat.type != 'private':
-        text = '查看订阅仅限私聊使用，请私聊机器人'
+    if update.effective_message.chat.type != "private":
+        text = "查看订阅仅限私聊使用，请私聊机器人"
     else:
         text = _mysub(update.effective_user.id)
     query = update.callback_query
@@ -94,9 +90,7 @@ async def menu_mysub(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
 
@@ -109,9 +103,7 @@ async def menu_traffic(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
 
@@ -124,9 +116,7 @@ async def menu_lucky(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await query.edit_message_text(
-        text=text, reply_markup=reply_markup
-    )
+    await query.edit_message_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
 

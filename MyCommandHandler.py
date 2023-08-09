@@ -29,15 +29,15 @@ async def command_bind(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return_keyboard,
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    if update.message.chat.type != 'private':
-        text = '绑定用户仅限私聊使用，请私聊机器人'
+    if update.message.chat.type != "private":
+        text = "绑定用户仅限私聊使用，请私聊机器人"
         await update.message.reply_text(text=text, reply_markup=reply_markup)
         return START_ROUTES
     else:
         try:
-            token = context.args[0].split('token=')[-1]
+            token = context.args[0].split("token=")[-1]
         except:
-            text = '参数错误，格式为\n/bind 订阅链接\n请私聊 Bot 食用！'
+            text = "参数错误，格式为\n/bind 订阅链接\n请私聊 Bot 食用！"
             await update.message.reply_text(text=text, reply_markup=reply_markup)
             return START_ROUTES
     text = _bind(token, update.effective_user.id)
@@ -56,6 +56,7 @@ async def command_unbind(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
+
 # 抽奖
 async def command_lucky(update: Update, context: ContextTypes.DEFAULT_TYPE):
     telegram_id = update.effective_user.id
@@ -67,6 +68,7 @@ async def command_lucky(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
 
+
 # 查看钱包
 async def command_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE):
     telegram_id = update.effective_user.id
@@ -77,6 +79,7 @@ async def command_wallet(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(text=text, reply_markup=reply_markup)
     return START_ROUTES
+
 
 # 流量查询
 async def command_traffic(update: Update, context: ContextTypes.DEFAULT_TYPE):

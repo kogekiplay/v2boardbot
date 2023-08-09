@@ -2,13 +2,21 @@ import logging
 import os
 
 import telegram
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, Dice
+from telegram import (
+    Update,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    KeyboardButton,
+    Dice,
+)
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
     CommandHandler,
     ContextTypes,
-    ConversationHandler, MessageHandler, filters,
+    ConversationHandler,
+    MessageHandler,
+    filters,
 )
 
 from MenuHandle import *
@@ -22,21 +30,23 @@ from Utils import START_ROUTES, END_ROUTES
 
 # 设置代理，如果在国内需要设置，如果在国外就不需要设置，注释即可
 if HTTP_PROXY:
-    os.environ['HTTP_PROXY'] = HTTP_PROXY
+    os.environ["HTTP_PROXY"] = HTTP_PROXY
 if HTTPS_PROXY:
-    os.environ['HTTPS_PROXY'] = HTTPS_PROXY
+    os.environ["HTTPS_PROXY"] = HTTPS_PROXY
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id == ADMIN_TELEGRAM_ID and update.effective_message.chat.type == 'private':
+    if (
+        update.effective_user.id == ADMIN_TELEGRAM_ID
+        and update.effective_message.chat.type == "private"
+    ):
         start_keyboard_admin = [
-            InlineKeyboardButton(text='⏱添加时长', callback_data='addtime'),
-            InlineKeyboardButton(text='🔁重置流量', callback_data='resetdata')
+            InlineKeyboardButton(text="⏱添加时长", callback_data="addtime"),
+            InlineKeyboardButton(text="🔁重置流量", callback_data="resetdata"),
         ]
         start_keyboard_copy = start_keyboard.copy()
         start_keyboard_copy.append(start_keyboard_admin)
@@ -69,7 +79,9 @@ async def end(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 # 获取电报id
 async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_user.id, text=update.effective_chat.id)
+    await context.bot.send_message(
+        chat_id=update.effective_user.id, text=update.effective_chat.id
+    )
 
 
 async def handle_input_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -77,20 +89,20 @@ async def handle_input_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         text = _addtime(int(user_input))
     except:
-        text = '输入有误，请输入整数'
+        text = "输入有误，请输入整数"
     await update.message.reply_text(text)
     return ConversationHandler.END
 
 
 async def quit_input(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('已退出输入模式')
+    await update.message.reply_text("已退出输入模式")
     return ConversationHandler.END
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 面板数据库连接
     Db.connect()
-    if os.path.exists('bot.db'):
+    if os.path.exists("bot.db"):
         res = BotDb.connect()
     else:
         res = BotDb.connect()
@@ -101,12 +113,11 @@ if __name__ == '__main__':
         CommandHandler("start", start),
         CommandHandler("myid", myid),
         CommandHandler("checkin", command_checkin),  # 处理签到命令
-        CommandHandler('bind', command_bind),  # 处理绑定命令
-        CommandHandler('unbind', command_unbind),  # 处理解绑命令
-        CommandHandler('lucky', command_lucky),  # 处理幸运抽奖命令
-        CommandHandler('wallet', command_wallet),  # 处理查看钱包命令
-        CommandHandler('traffic', command_traffic),  # 处理查看流量命令
-
+        CommandHandler("bind", command_bind),  # 处理绑定命令
+        CommandHandler("unbind", command_unbind),  # 处理解绑命令
+        CommandHandler("lucky", command_lucky),  # 处理幸运抽奖命令
+        CommandHandler("wallet", command_wallet),  # 处理查看钱包命令
+        CommandHandler("traffic", command_traffic),  # 处理查看流量命令
     ]
     conv_handler = ConversationHandler(
         entry_points=CommandList,
@@ -127,12 +138,12 @@ if __name__ == '__main__':
                 # CallbackQueryHandler(four, pattern="^" + str(FOUR) + "$"),
             ],
             WAITING_INPUT: [
-                MessageHandler(filters.Text(['不玩了', '退出', 'quit']), quit_input),
+                MessageHandler(filters.Text(["不玩了", "退出", "quit"]), quit_input),
                 MessageHandler(filters.Dice(), slot_machine),
             ],
-            'addtime': [
+            "addtime": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, handle_input_text)
-            ]
+            ],
         },
         fallbacks=CommandList,
     )
