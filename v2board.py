@@ -98,7 +98,7 @@ def _checkin(telegram_id):
     if botuser.sign_time and botuser.sign_time.date() == datetime.today().date():
         return "你今天已经签到过了，明天再来哦"
 
-    num = random.randint(-1024, 2048)
+    num = random.randint(50, 1024)
     flow = num * 1024 * 1024
     botuser.v2_user.transfer_enable += flow
     botuser.sign_time = datetime.now()
