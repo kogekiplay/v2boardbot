@@ -74,16 +74,16 @@ class Config:
             else:
                 setattr(self, section, values)
 
-    def save(self, config_path="config.yaml"):
+    def save(self, config_path='config.yaml'):
         saved_config = {}
         for section_name, section_obj in self.__dict__.items():
             if isinstance(section_obj, self.__ConfigSection):
                 new_section_dict = {}
                 for k, v in section_obj.to_dict().items():
-                    if v.find("未配置") == -1:
+                    if str(v).find('未配置') == -1:
                         new_section_dict[k] = v
                 saved_config[section_name] = new_section_dict
-        with open(config_path, "w") as fp:
+        with open(config_path, 'w') as fp:
             yaml.dump(saved_config, fp)
 
         self.config = saved_config
