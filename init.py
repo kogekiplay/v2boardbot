@@ -154,6 +154,7 @@ def check_file(config_path):
         config = {
             'TIGER': {},
             'DICE': {},
+            'AUTODELETE': {},
             'TELEGRAM': {
                 'token': None
             },
