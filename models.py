@@ -1,8 +1,8 @@
 from peewee import *
 from playhouse.pool import PooledMySQLDatabase, PooledSqliteDatabase
+from Config import config
 
-from config import DATABASE
-
+DATABASE = config.DATABASE.to_dict()
 Db = PooledMySQLDatabase(**DATABASE)
 
 BotDb = PooledSqliteDatabase("bot.db", max_connections=8, stale_timeout=300)
