@@ -25,29 +25,33 @@ async def delete_both_messages(update, context):
     # 获取用户消息的id和chat id
     user_message_id = update.message.message_id
     user_chat_id = update.message.chat_id
-    # 获取bot消息的id和chat id
-    bot_message_id = context.bot_data["bot_message_id"]
-    bot_chat_id = context.bot_data["bot_chat_id"]
     # 获取bot在当前聊天中的状态
     bot_status = await context.bot.get_chat_member(
         chat_id=user_chat_id, user_id=context.bot.id
     )
     # 判断bot是否有删除消息的权限
     if bot_status.can_delete_messages:
+        # 获取bot消息的id和chat id
+        bot_message_id = context.bot_data["bot_message_id"]
+        bot_chat_id = context.bot_data["bot_chat_id"]
+        # 创建一个空列表
+        messages_to_delete = []
+        # 将用户和 bot 的消息加入列表
+        messages_to_delete.append(context.bot.delete_message(
+                        chat_id=user_chat_id, message_id=user_message_id
+                    ))
+        messages_to_delete.append(context.bot.delete_message(chat_id=bot_chat_id, message_id=bot_message_id))
+        # 判断骰子消息的 id 和 chat id 是否存在
+        if "dice_message_id" in context.bot_data and "dice_chat_id" in context.bot_data:
+            # 如果存在，就将骰子消息加入列表
+            messages_to_delete.append(context.bot.delete_message(
+                            chat_id=context.bot_data["dice_chat_id"],
+                            message_id=context.bot_data["dice_message_id"],
+                    ))
         # 如果有，就等待5秒
         await asyncio.sleep(5)
         # 同时删除用户和bot的消息
-        await asyncio.gather(
-            context.bot.delete_message(
-                chat_id=user_chat_id, message_id=user_message_id
-            ),
-            context.bot.delete_message(chat_id=bot_chat_id, message_id=bot_message_id),
-            # 删除bot发出的骰子消息
-            context.bot.delete_message(
-                chat_id=context.bot_data["dice_chat_id"],
-                message_id=context.bot_data["dice_message_id"],
-            ),
-        )
+        await asyncio.gather(*messages_to_delete)
     else:
         # 如果没有，就打印一个警告信息
         logging.warning(
