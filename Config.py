@@ -35,7 +35,7 @@ class Config:
         to_dict = None
 
     class AUTODELETE:
-        status = True
+        switch = None
 
     class __ConfigSection:
         def __init__(self, section_dict):

@@ -11,7 +11,7 @@ def auto_delete_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         # 检查auto_delete的值
-        if config.AUTODELETE.status:
+        if config.AUTODELETE.switch:
             return func(*args, **kwargs)
         else:
             pass
