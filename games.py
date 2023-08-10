@@ -79,7 +79,7 @@ async def slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
         asyncio.get_event_loop().create_task(delete_both_messages(update, context))
         return WAITING_INPUT
 
-    if not update.message.dice.emoji in ["🎰", "'''''''🎲"]:
+    if not update.message.dice.emoji in ['🎰', '🎲']:
         bot_message = await update.message.reply_text(
             text=f"暂不支持{update.message.dice.emoji}玩法"
         )
