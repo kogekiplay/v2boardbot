@@ -3,6 +3,7 @@ from telegram.ext import ContextTypes, ConversationHandler
 from Config import config
 from Utils import WAITING_INPUT
 from models import V2User
+from functools import wraps
 import asyncio, logging
 
 
