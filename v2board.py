@@ -59,7 +59,7 @@ def _wallet(telegram_id):
 def _bind(token, telegram_id):
     # 查询telegram_id是否绑定了其他账号
     botuser = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
-    if botuser.__data__.get("v2_user") != 0:
+    if botuser and botuser.__data__.get("v2_user") != 0:
         return "该Telegram已经绑定了一个账号，请先解绑再绑定"
     v2_user = V2User.select().where(V2User.token == token).first()
     if not v2_user:
@@ -94,6 +94,10 @@ def _unbind(telegram_id):
 def _checkin(telegram_id):
     botuser = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
     if not botuser:
+        return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
+
+    # 为了适应新版本
+    if botuser.__data__.get("v2_user") == 0:
         return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
 
     if botuser.v2_user.expired_at in [None, 0]:
@@ -150,6 +154,14 @@ def _mysub(telegram_id):
 def _lucky(telegram_id):
     botuser = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
     if not botuser:
+        return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
+
+    # 为了适应新版本
+    if botuser.__data__.get("v2_user") == 0:
+        return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
+
+    # 为了适应新版本
+    if botuser.__data__.get("v2_user") == 0:
         return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
 
     if botuser.v2_user.expired_at in [None, 0]:
