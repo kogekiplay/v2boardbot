@@ -15,7 +15,7 @@ def print_log(log, type_='tips'):
 
 def save_config(config, config_path='config.yaml'):
     with open(config_path, "w") as yaml_file:
-        yaml.dump(config, yaml_file, default_style=None)
+        yaml.dump(config, yaml_file, default_style=None, allow_unicode=True)
 
 
 def check_database(config_path):

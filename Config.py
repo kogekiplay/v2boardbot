@@ -84,7 +84,7 @@ class Config:
                         new_section_dict[k] = v
                 saved_config[section_name] = new_section_dict
         with open(config_path, 'w') as fp:
-            yaml.dump(saved_config, fp)
+            yaml.dump(saved_config, fp, allow_unicode=True)
 
         self.config = saved_config
 
