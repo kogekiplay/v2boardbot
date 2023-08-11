@@ -183,7 +183,7 @@ async def roulette_bettraffic(update: Update, context: ContextTypes.DEFAULT_TYPE
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(
-        text=f'请发送投入的初始流量，发送10则初始10GB\n当前初始流量：{config.ROULETTE.rate}', reply_markup=reply_markup
+        text=f'请发送投入的初始流量，发送10则初始10GB\n当前初始流量：{config.ROULETTE.bettraffic}', reply_markup=reply_markup
     )
     return 'roulette_bettraffic'
 
