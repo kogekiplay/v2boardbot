@@ -250,8 +250,9 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # 如果新计数小于子弹位置，表示用户中弹并扣除流量
         elif new_count < bullet:
             bot_message = await update.message.reply_text(
-                text=f'{user_name}中弹。当前子弹位置：{bullet}流量已从你账户扣除{roulette}GB\n当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
+                text=f'{user_name}中弹。当前子弹位置：{bullet}，计数{new_count}流量已从你账户扣除{roulette}GB\n当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
             )
+            context.chat_data[chat_id]['count'] = new_count
     else:
         bot_message = await update.message.reply_text(
                 text=f'异常错误。。。',
