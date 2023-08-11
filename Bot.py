@@ -149,6 +149,7 @@ if __name__ == "__main__":
         CommandHandler("lucky", command_lucky),  # 处理幸运抽奖命令
         CommandHandler("wallet", command_wallet),  # 处理查看钱包命令
         CommandHandler("traffic", command_traffic),  # 处理查看流量命令
+        MessageHandler(filters.Text("🔫"), roulette),
     ]
     conv_handler = ConversationHandler(
         entry_points=CommandList,
