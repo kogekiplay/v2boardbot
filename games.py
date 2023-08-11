@@ -252,5 +252,9 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
             bot_message = await update.message.reply_text(
                 text=f'{user_name}中弹。流量已从你账户扣除{roulette}GB\n当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
             )
+    else:
+        bot_message = await update.message.reply_text(
+                text=f'异常错误。。。',
+            )
     return WAITING_INPUT_ROULETTE
 
