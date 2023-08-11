@@ -197,7 +197,7 @@ def _traffic(telegram_id):
 已用上行：{round(upload, 2)} GB
 已用下行：{round(download, 2)} GB
 剩余流量：{round(residual, 2)} GB
-总流量： {round(residual, 2)} GB
+总流量： {round(traffic, 2)} GB
 '''
     return text
 
