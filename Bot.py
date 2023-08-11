@@ -177,7 +177,7 @@ if __name__ == "__main__":
             ],
             
             WAITING_INPUT_ROULETTE: [
-                MessageHandler(filters.Dice(emoji="🏀"), roulette),
+                MessageHandler(filters.photo & filters.caption_regex(r'\U0001F52B'), roulette),
             ],
             
             "addtime": [
