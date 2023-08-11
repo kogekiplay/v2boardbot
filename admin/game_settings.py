@@ -101,7 +101,7 @@ async def game_dice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [
             InlineKeyboardButton(switch, callback_data='roulette_switch'),
-            InlineKeyboardButton('📈赔率:{config.DICE.rate}', callback_data='dice_rate'),
+            InlineKeyboardButton(f'📈赔率:{config.DICE.rate}', callback_data='dice_rate'),
         ],
         return_keyboard,
     ]

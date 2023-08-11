@@ -179,6 +179,9 @@ if __name__ == "__main__":
             "tiger_rate": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, edit_tiger_rate)
             ],
+            "dice_rate":[
+                MessageHandler(filters.TEXT & ~filters.COMMAND, edit_dice_rate)
+            ],
             "roulette_bettraffic": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, edit_roulette_bettraffic)
             ],
