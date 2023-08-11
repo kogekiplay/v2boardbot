@@ -124,7 +124,7 @@ async def dice_(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot
     forward = await is_forward(update, context, v2_user, bot_user)
     if forward == False:
         # 设置最小和最大下注流量
-        maxnum=round(v2_user.transfer_enable / 1024 ** 3 ** 0.25, 2)
+        maxnum=round(v2_user.transfer_enable / 1024 ** 3 * 0.25, 2)
         max_betting = min(maxnum, bot_user.betting)
         print(bot_user.betting)
         print(max_betting)
