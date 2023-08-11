@@ -281,17 +281,11 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return STATUS
 
 # 俄罗斯转盘
-async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot_user):
     # 开关
-    if update.message.text == "🔫" and config.ROULETTE.switch != True:
-        bot_message = await update.message.reply_text(text="当前俄罗斯转盘游戏关闭，不可进行游戏")
-        return WAITING_INPUT_ROULETTE
+    if config.ROULETTE.switch != True:
+        return '当前俄罗斯轮盘游戏关闭，不可进行游戏', START_ROUTES
 
-    if not update.message.text == "🔫":
-        bot_message = await update.message.reply_text(
-            text=f"暂不支持{update.message.text}玩法"
-        )
-        return WAITING_INPUT_ROULETTE
 
     v2_user = (
         V2User.select().where(V2User.telegram_id == update.effective_user.id).first()
@@ -304,7 +298,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         context.bot_data["bot_message_id"] = bot_message.message_id
         context.bot_data["bot_chat_id"] = bot_message.chat_id
         asyncio.get_event_loop().create_task(delete_both_messages(update, context))
-        return WAITING_INPUT_ROULETTE
+        return START_ROUTES
 
     traffic = v2_user.transfer_enable / 1024**3
     upload = v2_user.u / 1024**3
@@ -314,7 +308,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if overage < roulette:
         bot_message = await update.message.reply_text(text=f"你的流量已不足{roulette}，无法进行游戏")
-        return WAITING_INPUT_ROULETTE
+        return START_ROUTES
 
     if update.message.text == "🔫":
         v2_user.transfer_enable -= roulette *1024 ** 3
@@ -357,4 +351,4 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         bot_message = await update.message.reply_text(
                 text=f'异常错误。。。',
             )
-    return WAITING_INPUT_ROULETTE
+    return START_ROUTES

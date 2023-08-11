@@ -175,6 +175,7 @@ def check_file(config_path):
             }
         if not config.get('ROULETTE'):
             config['ROULETTE'] = {
+                'switch': False,
                 'bettraffic': 1,
             }
         if not config.get('AUTODELETE'):
@@ -200,6 +201,7 @@ def check_file(config_path):
                 'rate': 2,
             },
             'ROULETTE': {
+                'switch': False,
                 'bettraffic': 1,
             },
             'AUTODELETE': {

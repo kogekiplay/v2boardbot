@@ -36,6 +36,8 @@ class Config:
 
     class ROULETTE:
         bettraffic = None
+        switch = None
+        to_dict = None
 
     class GAME:
         switch = None

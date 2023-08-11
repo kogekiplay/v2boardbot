@@ -125,6 +125,7 @@ if __name__ == "__main__":
         CallbackQueryHandler(start_over, pattern="^start_over$"),
         MessageHandler(filters.Text(['不玩了', '退出', 'quit']), quit_game),
         MessageHandler(filters.Dice(), gambling),
+        MessageHandler(filters.Text("🔫"), roulette),
     ]
     conv_handler = ConversationHandler(
         entry_points=CommandList,
@@ -174,6 +175,9 @@ if __name__ == "__main__":
             ],
             "tiger_rate": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, edit_tiger_rate)
+            ],
+            "roulette_bettraffic": [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, edit_roulette_bettraffic)
             ],
             'input_betting': [
                 MessageHandler(filters.TEXT, select_flow),
