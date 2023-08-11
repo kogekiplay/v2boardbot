@@ -190,9 +190,13 @@ async def select_flow(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(text=f'请发送你要下注的流量，单位：GB')
         return 'input_betting'
     bot_user = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
-    bot_user.betting = int(betting.replace('GB', ''))
-    bot_user.save()
-    await query.message.reply_text(text=f'下注成功，你每局游戏将下注{betting}流量')
+    try:
+        bot_user.betting = int(betting.replace('GB', ''))
+        bot_user.save()
+        await query.message.reply_text(text=f'下注成功，你每局游戏将下注{betting}流量')
+    except ValueError:
+        # 如果出现异常，就捕获它，并给用户发送一条消息
+        await update.message.reply_text(text=f'输入有误，请输入一个数字')
     return START_ROUTES
 
 
