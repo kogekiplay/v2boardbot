@@ -93,6 +93,58 @@ async def tiger_switch(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await game_tiger(update, context)
     return 'game_settings'
 
+async def game_dice(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    switch = '🚫关闭' if config.DICE.switch == True else '🔛开启'
+    keyboard = [
+        [
+            InlineKeyboardButton(switch, callback_data='roulette_switch'),
+            InlineKeyboardButton('📈赔率:{config.DICE.rate}', callback_data='dice_rate'),
+        ],
+        return_keyboard,
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await query.edit_message_text(
+        text=config.TELEGRAM.title, reply_markup=reply_markup
+    )
+    return 'game_settings'
+
+async def edit_dice_rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        config.DICE.rate = float(update.message.text)
+        config.save()
+        text = '编辑成功'
+    except:
+        text = '发送信息错误，必须是数字'
+
+    await update.message.reply_text(text=text)
+    return 'game_settings'
+
+async def dice_rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    keyboard = [
+        return_keyboard,
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await query.edit_message_text(
+        text=f'请发送赔率，发送10则1赔10\n当前倍率：{config.DICE.rate}', reply_markup=reply_markup
+    )
+    return 'dice_rate'
+
+async def dice_switch(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    if config.DICE.switch == True:
+        config.DICE.switch = False
+    else:
+        config.DICE.switch = True
+    config.save()
+    await game_dice(update, context)
+    return 'game_settings'
+
 async def game_roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()

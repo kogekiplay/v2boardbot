@@ -1,6 +1,6 @@
 from init import init
 from admin import *
-from admin import game_settings, game_tiger, tiger_switch, tiger_rate, edit_tiger_rate, game_roulette, roulette_switch, roulette_bettraffic, edit_roulette_bettraffic
+from admin import game_settings, game_tiger, tiger_switch, tiger_rate, edit_tiger_rate, game_dice, dice_switch, dice_rate, edit_dice_rate, game_roulette, roulette_switch, roulette_bettraffic, edit_roulette_bettraffic
 from admin import bot_settings, set_title, edit_title
 from games import *
 import logging
@@ -167,6 +167,9 @@ if __name__ == "__main__":
                 CallbackQueryHandler(game_tiger, pattern="^game_tiger"),
                 CallbackQueryHandler(tiger_switch, pattern="^tiger_switch"),
                 CallbackQueryHandler(tiger_rate, pattern="^tiger_rate"),
+                CallbackQueryHandler(game_dice, pattern="^game_dice"),
+                CallbackQueryHandler(dice_switch, pattern="^dice_switch"),
+                CallbackQueryHandler(dice_rate, pattern="^dice_rate"),
                 CallbackQueryHandler(game_roulette, pattern="^game_roulette"),
                 CallbackQueryHandler(roulette_switch, pattern="^roulette_switch"),
                 CallbackQueryHandler(roulette_bettraffic, pattern="^roulette_bettraffic"),
