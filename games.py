@@ -183,13 +183,13 @@ async def slot_machine(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # 俄罗斯转盘
 async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 开关
-    if update.message.dice.emoji == "🔫" and config.ROULETTE.switch != True:
+    if update.message.text == "🔫" and config.ROULETTE.switch != True:
         bot_message = await update.message.reply_text(text="当前俄罗斯转盘游戏关闭，不可进行游戏")
         return WAITING_INPUT_ROULETTE
-    
-    if not update.message.dice.emoji in ['🔫']:
+        
+    if not update.message.text == "🔫":
         bot_message = await update.message.reply_text(
-            text=f"暂不支持{update.message.dice.emoji}玩法"
+            text=f"暂不支持{update.message.text}玩法"
         )
         return WAITING_INPUT_ROULETTE
     
@@ -215,7 +215,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         bot_message = await update.message.reply_text(text=f"你的流量已不足{roulette}，无法进行游戏")
         return WAITING_INPUT_ROULETTE
     
-    if update.message.dice.emoji == "🔫":
+    if update.message.text == "🔫":
         v2_user.transfer_enable -= roulette *1024 ** 3
         v2_user.save()
         roulette = config.ROULETTE.bettraffic
