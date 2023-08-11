@@ -83,7 +83,7 @@ async def can_games(v2_user, bot_user):
         return True
 
 
-async def tiger(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot_user):
+async def tiger(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 开关
     if config.TIGER.switch != True:
         return '当前老虎机游戏关闭，不可进行游戏', START_ROUTES
