@@ -49,9 +49,9 @@ async def menu_roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(
-        text=f'🔫俄罗斯转盘\n规则：\n一共7枪，其中某一枪没有子弹\n发送 <code>🔫<code> 表情参与，可以连续发送\n当前参与扣除流量：{config.ROULETTE.bettraffic}G',
+        text=f'🔫俄罗斯转盘\n规则：\n一共7枪，其中某一枪没有子弹\n发送 `🔫` 表情参与，可以连续发送\n当前参与扣除流量：{config.ROULETTE.bettraffic}G',
         reply_markup=reply_markup,
-        parse_mode="HTML"
+        parse_mode='MarkdownV2'
     )
     return WAITING_INPUT_ROULETTE
 
