@@ -34,6 +34,11 @@ class Config:
         switch = None
         to_dict = None
 
+    class ROULETTE:
+        switch = None
+        bettraffic = None
+        to_dict = None
+
     class AUTODELETE:
         switch = None
 

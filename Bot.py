@@ -8,6 +8,10 @@ from admin.game_settings import (
     tiger_switch,
     tiger_rate,
     edit_tiger_rate,
+    game_roulette,
+    roulette_switch,
+    roulette_bettraffic,
+    edit_roulette_bettraffic
 )
 from admin.settings import bot_settings, set_title, edit_title
 import logging
@@ -32,7 +36,7 @@ from telegram.ext import (
 from MenuHandle import *
 from MyCommandHandler import *
 from Config import config
-from games import slot_machine
+from games import slot_machine, roulette
 from keyboard import start_keyboard
 from v2board import _bind, _checkin, _traffic, _lucky, _addtime
 from models import Db, BotDb, BotUser
@@ -154,6 +158,7 @@ if __name__ == "__main__":
                 CallbackQueryHandler(bot_settings, pattern="^settings"),
                 CallbackQueryHandler(game_settings, pattern="^game_settings"),
                 CallbackQueryHandler(menu_slot_machine, pattern="^slot_machine"),
+                CallbackQueryHandler(menu_roulette, pattern="^roulette"),
                 CallbackQueryHandler(menu_wallet, pattern="^wallet"),
                 CallbackQueryHandler(menu_checkin, pattern="^checkin$"),
                 CallbackQueryHandler(menu_sub, pattern="^sub$"),
@@ -170,6 +175,11 @@ if __name__ == "__main__":
                 MessageHandler(filters.Text(["不玩了", "退出", "quit"]), quit_input),
                 MessageHandler(filters.Dice(), slot_machine),
             ],
+            
+            WAITING_INPUT_ROULETTE: [
+                MessageHandler(filters.Dice(), roulette),
+            ],
+            
             "addtime": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, handle_input_text)
             ],
@@ -181,10 +191,16 @@ if __name__ == "__main__":
                 CallbackQueryHandler(game_tiger, pattern="^game_tiger"),
                 CallbackQueryHandler(tiger_switch, pattern="^tiger_switch"),
                 CallbackQueryHandler(tiger_rate, pattern="^tiger_rate"),
+                CallbackQueryHandler(game_roulette, pattern="^game_roulette"),
+                CallbackQueryHandler(roulette_switch, pattern="^roulette_switch"),
+                CallbackQueryHandler(roulette_bettraffic, pattern="^roulette_bettraffic"),
             ],
             "tiger_rate": [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, edit_tiger_rate)
             ],
+            "roulette_bettraffic": [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, edit_roulette_bettraffic)
+            ]
         },
         fallbacks=CommandList,
     )

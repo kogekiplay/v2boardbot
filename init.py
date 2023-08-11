@@ -154,6 +154,7 @@ def check_file(config_path):
         config = {
             'TIGER': {},
             'DICE': {},
+            'ROULETTE': {},
             'AUTODELETE': {},
             'TELEGRAM': {
                 'token': None
@@ -163,6 +164,8 @@ def check_file(config_path):
         config['TIGER']['rate'] = 20
         config['DICE']['switch'] = False
         config['DICE']['rate'] = 2
+        config['ROULETTE']['switch'] = False
+        config['ROULETTE']['bettraffic'] = 1
         config['AUTODELETE']['switch'] = True
         config['TELEGRAM'][
             'title'] = '尊敬的用户，欢迎使用v2boardbot\n项目地址:https://github.com/v2boardbot/v2boardbot\n"春风不写失意，梦醒仍寻旧忆。"'

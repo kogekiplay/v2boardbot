@@ -18,7 +18,7 @@ start_keyboard = [
         InlineKeyboardButton(text="🎰赌博机🎲", callback_data="slot_machine"),
     ],
     [
-        InlineKeyboardButton(text="🔫俄罗斯转盘（待开发）", callback_data="mysub"),
+        InlineKeyboardButton(text="🔫俄罗斯转盘", callback_data="roulette"),
     ],
 ]
 return_keyboard = [InlineKeyboardButton("返回菜单", callback_data="start_over")]

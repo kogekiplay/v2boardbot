@@ -11,6 +11,7 @@ async def game_settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [
             InlineKeyboardButton('🎰老虎机', callback_data='game_tiger'),
             InlineKeyboardButton('🎲骰子', callback_data='game_dice'),
+            InlineKeyboardButton('🔫俄罗斯转盘', callback_data='game_roulette'),
         ],
         return_keyboard,
     ]
@@ -74,5 +75,60 @@ async def tiger_switch(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         config.TIGER.switch = True
         await query.message.reply_text(text='老虎机开启成功')
+    config.save()
+    return 'game_settings'
+
+async def game_roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    switch = '🚫关闭' if config.ROULETTE.switch == True else '🔛开启'
+    keyboard = [
+        [
+            InlineKeyboardButton(switch, callback_data='roulette_switch'),
+            InlineKeyboardButton('📈投入流量', callback_data='roulette_bettraffic'),
+        ],
+        return_keyboard,
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await query.edit_message_text(
+        text=config.TELEGRAM.title, reply_markup=reply_markup
+    )
+    return 'game_settings'
+
+async def edit_roulette_bettraffic(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        config.ROULETTE.bettraffic = float(update.message.text)
+        config.save()
+        text = '编辑成功'
+    except:
+        text = '发送信息错误，必须是数字'
+
+    await update.message.reply_text(text=text)
+    return 'game_settings'
+
+
+async def roulette_bettraffic(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    keyboard = [
+        return_keyboard,
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await query.edit_message_text(
+        text=f'请发送投入的初始流量，发送10则初始10GB\n当前初始流量：{config.ROULETTE.rate}', reply_markup=reply_markup
+    )
+    return 'roulette_bettraffic'
+
+
+async def roulette_switch(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    if config.ROULETTE.switch == True:
+        config.ROULETTE.switch = False
+        await query.message.reply_text(text='俄罗斯转盘关闭成功')
+    else:
+        config.ROULETTE.switch = True
+        await query.message.reply_text(text='俄罗斯转盘开启成功')
     config.save()
     return 'game_settings'

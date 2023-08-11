@@ -6,7 +6,7 @@ from Config import config
 START_ROUTES, END_ROUTES = 0, 1
 
 WAITING_INPUT = 2
-
+WAITING_INPUT_ROULETTE = 2
 
 def _admin_auth():  # 返回网站管理员auth_data
     URL = config.WEBSITE.url
