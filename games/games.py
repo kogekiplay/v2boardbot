@@ -83,7 +83,7 @@ async def can_games(v2_user, bot_user):
         return True
 
 
-async def tiger(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def tiger(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot_user):
     # 开关
     if config.TIGER.switch != True:
         return '当前老虎机游戏关闭，不可进行游戏', START_ROUTES
@@ -281,11 +281,10 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return STATUS
 
 # 俄罗斯转盘
-async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot_user):
+async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 开关
     if config.ROULETTE.switch != True:
         return '当前俄罗斯轮盘游戏关闭，不可进行游戏', START_ROUTES
-
 
     v2_user = (
         V2User.select().where(V2User.telegram_id == update.effective_user.id).first()
