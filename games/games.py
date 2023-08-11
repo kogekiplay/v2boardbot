@@ -127,6 +127,9 @@ async def dice_(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot
         min_betting = max(1, bot_user.betting)
         maxnum=round(v2_user.transfer_enable / 1024 ** 3 ** 0.25, 2)
         max_betting = min(maxnum, bot_user.betting)
+        print(bot_user.betting)
+        print(min_betting)
+        print(max_betting)
         if bot_user.betting < min_betting or bot_user.betting > max_betting:
             return f'下注流量必须在{min_betting}GB到{max_betting}GB之间', START_ROUTES
         
