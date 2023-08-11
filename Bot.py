@@ -169,6 +169,9 @@ if __name__ == "__main__":
                 CallbackQueryHandler(game_tiger, pattern="^game_tiger"),
                 CallbackQueryHandler(tiger_switch, pattern="^tiger_switch"),
                 CallbackQueryHandler(tiger_rate, pattern="^tiger_rate"),
+                CallbackQueryHandler(game_roulette, pattern="^game_roulette"),
+                CallbackQueryHandler(roulette_switch, pattern="^roulette_switch"),
+                CallbackQueryHandler(roulette_bettraffic, pattern="^roulette_bettraffic"),
                 CallbackQueryHandler(game_switch, pattern="^game_switch"),
             ],
             "tiger_rate": [

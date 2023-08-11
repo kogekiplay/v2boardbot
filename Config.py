@@ -34,13 +34,16 @@ class Config:
         switch = None
         to_dict = None
 
+    class ROULETTE:
+        bettraffic = None
+
     class GAME:
         switch = None
         to_dict = None
 
     class AUTODELETE:
         switch = None
-        
+
     class __ConfigSection:
         def __init__(self, section_dict):
             for key, value in section_dict.items():

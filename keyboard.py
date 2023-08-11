@@ -14,10 +14,6 @@ start_keyboard = [
         InlineKeyboardButton(text="🌐节点状态", callback_data="node"),
     ],
     [
-        InlineKeyboardButton(text="🔗订阅链接", callback_data="mysub"),
-        InlineKeyboardButton(text="🎰赌博机🎲", callback_data="slot_machine"),
-    ],
-    [
         InlineKeyboardButton(text='🔗订阅链接', callback_data='mysub'),
         InlineKeyboardButton(text='🎰赌博模式🎲', callback_data='gambling'),
     ],

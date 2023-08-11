@@ -173,6 +173,14 @@ def check_file(config_path):
                 'switch': False,
                 'rate': 2,
             }
+        if not config.get('ROULETTE'):
+            config['ROULETTE'] = {
+                'bettraffic': 1,
+            }
+        if not config.get('AUTODELETE'):
+            config['AUTODELETE'] = {
+                'switch': True,
+            }
         save_config(config)
     else:
         config = {
@@ -190,6 +198,12 @@ def check_file(config_path):
             'DICE': {
                 'switch': False,
                 'rate': 2,
+            },
+            'ROULETTE': {
+                'bettraffic': 1,
+            },
+            'AUTODELETE': {
+                'switch': True,
             },
 
         }
