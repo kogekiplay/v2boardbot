@@ -147,7 +147,7 @@ def _sub(telegram_id):
 def _mysub(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return "未绑定,请先绑定"
+        return "未绑定,请先绑定\n使用 /bind 命令绑定你的订阅"
     return f"您的订阅链接:{config.WEBSITE.url}/api/v1/client/subscribe?token={v2_user.token}"
 
 
