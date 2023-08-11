@@ -286,7 +286,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 开关
     if config.ROULETTE.switch != True:
         bot_message = await update.message.reply_text('当前俄罗斯轮盘游戏关闭，不可进行游戏')
-
+        return ConversationHandler.END
     v2_user = (
         V2User.select().where(V2User.telegram_id == update.effective_user.id).first()
     )
