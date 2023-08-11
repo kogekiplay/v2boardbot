@@ -209,6 +209,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     traffic = v2_user.transfer_enable / 1024**3
     upload = v2_user.u / 1024**3
     download = v2_user.d / 1024**3
+    roulette = config.ROULETTE.bettraffic
     overage = traffic - upload - download
 
     if overage < roulette:
@@ -218,7 +219,6 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.text == "🔫":
         v2_user.transfer_enable -= roulette *1024 ** 3
         v2_user.save()
-        roulette = config.ROULETTE.bettraffic
         # 获取用户的id
         user_id = update.effective_user.id
         # 获取用户的用户名
