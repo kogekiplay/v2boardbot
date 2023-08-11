@@ -285,7 +285,6 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 保存bot消息的id和chat id到context.bot_data中
     context.bot_data["bot_message_id"] = bot_message.message_id
     context.bot_data["bot_chat_id"] = bot_message.chat_id
-    print(result)
     if '中奖了' not in result:
         # 调用delete_both_messages函数来删除用户和bot的消息
         asyncio.get_event_loop().create_task(delete_both_messages(update, context))
@@ -358,6 +357,10 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
             bot_message = await update.message.reply_text(
                 text=f'{user_name}中弹。\n当前已开{new_count}枪。\n流量已从你账户扣除{roulette}GB\n当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
             )
+            # 保存bot消息的id和chat id到context.bot_data中
+            context.bot_data["bot_message_id"] = bot_message.message_id
+            context.bot_data["bot_chat_id"] = bot_message.chat_id
+            asyncio.get_event_loop().create_task(delete_both_messages(update, context))
             context.chat_data[chat_id]['count'] = new_count
     else:
         bot_message = await update.message.reply_text(
