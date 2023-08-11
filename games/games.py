@@ -78,7 +78,7 @@ async def is_forward(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user
 async def can_games(v2_user, bot_user):
     traffic = await get_traffic(v2_user)
     if traffic < bot_user.betting:
-        return f'你的流量已不足{bot_user.betting}，无法进行游戏'
+        return f'你的流量已不足{bot_user.betting}G，无法进行游戏'
     else:
         return True
 
@@ -318,7 +318,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     overage = traffic - upload - download
 
     if overage < roulette:
-        bot_message = await update.message.reply_text(text=f"你的流量已不足{roulette}，无法进行游戏")
+        bot_message = await update.message.reply_text(text=f"你的流量已不足{roulette}G，无法进行游戏")
         return START_ROUTES
 
     if update.message.text == "🔫":
