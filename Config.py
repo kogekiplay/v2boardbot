@@ -34,14 +34,13 @@ class Config:
         switch = None
         to_dict = None
 
-    class ROULETTE:
-        bettraffic = None
+    class GAME:
         switch = None
         to_dict = None
 
     class AUTODELETE:
         switch = None
-
+        
     class __ConfigSection:
         def __init__(self, section_dict):
             for key, value in section_dict.items():
@@ -58,7 +57,8 @@ class Config:
             setattr(self, item, f"{item}未配置")
             return getattr(self, item)
 
-    def __init__(self, config_path="config.yaml"):
+    def __init__(self, config_path='config.yaml'):
+        self.config_path = config_path
         self.config = self._load_config(config_path)
         self._load_attributes()
 
@@ -92,6 +92,11 @@ class Config:
             yaml.dump(saved_config, fp, allow_unicode=True)
 
         self.config = saved_config
+
+    def reload(self):
+        self.config = self._load_config(self.config_path)
+        self._load_attributes()
+        return self.config
 
 
 config = Config()
