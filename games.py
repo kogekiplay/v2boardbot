@@ -225,6 +225,13 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_name = update.effective_user.first_name
         # 获取聊天的id
         chat_id = update.effective_chat.id
+        # 如果聊天还没有开始游戏，初始化一个随机数作为子弹位置，并保存在上下文中
+        if chat_id not in context.chat_data:
+            context.chat_data[chat_id] = {
+                'bullet': random.randint(1, 7),
+                'count': 0,
+                'dead': False,
+            }
         # 获取聊天当前的子弹位置和计数
         bullet = context.chat_data[chat_id]['bullet']
         current_count = context.chat_data[chat_id]['count']
