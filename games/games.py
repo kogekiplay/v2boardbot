@@ -124,14 +124,12 @@ async def dice_(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot
     forward = await is_forward(update, context, v2_user, bot_user)
     if forward == False:
         # 设置最小和最大下注流量
-        min_betting = max(1, bot_user.betting)
         maxnum=round(v2_user.transfer_enable / 1024 ** 3 ** 0.25, 2)
         max_betting = min(maxnum, bot_user.betting)
         print(bot_user.betting)
-        print(min_betting)
         print(max_betting)
-        if bot_user.betting < min_betting or bot_user.betting > max_betting:
-            return f'下注流量必须在{min_betting}GB到{max_betting}GB之间', START_ROUTES
+        if bot_user.betting < 1 or bot_user.betting > max_betting:
+            return f'下注流量必须在1GB到{max_betting}GB之间', START_ROUTES
         
         # 扣下注流量
         traffic = await edit_traffic(v2_user, -bot_user.betting)
