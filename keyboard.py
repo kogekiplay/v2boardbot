@@ -15,7 +15,7 @@ start_keyboard = [
     ],
     [
         InlineKeyboardButton(text='🔗订阅链接', callback_data='mysub'),
-        InlineKeyboardButton(text='🎰赌博模式🎲', callback_data='gambling'),
+        InlineKeyboardButton(text='🎰赌博模式🎲', callback_data='start_game'),
     ],
     [
         InlineKeyboardButton(text="🔫俄罗斯转盘", callback_data="roulette"),

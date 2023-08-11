@@ -1,1 +1,1 @@
-from games.games import gambling, roulette
+from games.games import *
