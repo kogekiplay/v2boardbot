@@ -153,7 +153,7 @@ async def game_roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [
             InlineKeyboardButton(switch, callback_data='roulette_switch'),
-            InlineKeyboardButton('📈投入流量', callback_data='roulette_bettraffic'),
+            InlineKeyboardButton(f'📈投入流量：{config.ROULETTE.bettraffic}G', callback_data='roulette_bettraffic'),
         ],
         return_keyboard,
     ]
