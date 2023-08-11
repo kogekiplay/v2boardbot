@@ -348,7 +348,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
             v2_user.transfer_enable += bullet * 1024**3
             v2_user.save()
             bot_message = await update.message.reply_text(
-                text=f'{user_name}在第{new_count}次没有中弹\n赢得{bullet}G\n流量当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
+                text=f'{user_name}\n在第{new_count}次没有中弹\n赢得{bullet}G\n流量当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
             )
             context.chat_data[chat_id]['bullet'] = random.randint(1, 7)
             context.chat_data[chat_id]['count'] = 0
