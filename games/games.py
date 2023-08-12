@@ -53,7 +53,7 @@ async def delete_both_messages(update, context):
                                 message_id=context.bot_data["dice_message_id"],
                         ))
             # 如果有，就等待5秒
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)
             # 同时删除用户和bot的消息
             await asyncio.gather(*messages_to_delete)
         else:
