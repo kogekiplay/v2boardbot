@@ -345,10 +345,10 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # 如果新计数等于子弹位置，表示用户没有中弹，设置dead为True，并回复用户
         if new_count == bullet:
             context.chat_data[chat_id]['dead'] = True
-            v2_user.transfer_enable += bullet * 1024**3
+            v2_user.transfer_enable += (bullet * roulette) * 1024**3
             v2_user.save()
             bot_message = await update.message.reply_text(
-                text=f'{user_name}\n在第{new_count}次没有中弹\n赢得{bullet}G\n流量当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
+                text=f'{user_name}\n在第{new_count}次没有中弹\n赢得{bullet * roulette}G\n流量当前账户流量：{round(v2_user.transfer_enable / 1024 ** 3, 2)}GB',
             )
             context.chat_data[chat_id]['bullet'] = random.randint(1, 7)
             context.chat_data[chat_id]['count'] = 0
