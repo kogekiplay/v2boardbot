@@ -352,7 +352,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             context.chat_data[chat_id]['bullet'] = random.randint(1, 7)
             context.chat_data[chat_id]['count'] = 0
-            START_ROUTES
+            return START_ROUTES
         # 如果新计数小于子弹位置，表示用户中弹并扣除流量
         elif new_count < bullet:
             bot_message = await update.message.reply_text(
@@ -363,7 +363,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.bot_data["bot_chat_id"] = bot_message.chat_id
             asyncio.get_event_loop().create_task(delete_both_messages(update, context))
             context.chat_data[chat_id]['count'] = new_count
-            START_ROUTES
+            return START_ROUTES
     else:
         bot_message = await update.message.reply_text(
                 text=f'异常错误。。。',
