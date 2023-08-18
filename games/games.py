@@ -321,7 +321,7 @@ async def start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     if config.GAME.switch != True:
-        await update.message.reply_text(text='当前赌博模式关闭，请联系管理员！')
+        await query.edit_message_text(text='当前赌博模式关闭，请联系管理员！')
         return ConversationHandler.END
     await query.edit_message_text(
         text=f'当前赔率:🎰1赔{config.TIGER.rate}   🎲1赔{config.DICE.rate}\n发送"不玩了"退出赌博模式\n请选择下注流量或自定义：',
