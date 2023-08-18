@@ -28,7 +28,7 @@ async def to_bytes(size, unit='gb'):
 
 
 # 获取当前剩余流量
-async def get_traffic(v2_user,mode:int):
+async def get_traffic(v2_user, mode=0):
     plan = v2_user.plan_id.transfer_enable
     traffic = await from_bytes(v2_user.transfer_enable)  # 总量
     upload = await from_bytes(v2_user.u)  # 已用上行
