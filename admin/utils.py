@@ -6,6 +6,7 @@ game_dict = {
     '⚽足球': config.FOOTBALL,
     '🎯飞镖': config.BULLSEYE,
     '🎳保龄球': config.BOWLING,
+    '🔫俄罗斯轮盘': config.ROULETTE
 }
 settings_dict = {
     '🏷️标题设置': 'title',
