@@ -52,9 +52,9 @@ class Config:
         to_dict = None
 
     class BOWLING:
-            rate = None
-            switch = None
-            to_dict = None
+        rate = None
+        switch = None
+        to_dict = None
 
     class GAME:
         switch = None

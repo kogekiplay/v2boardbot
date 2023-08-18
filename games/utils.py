@@ -28,12 +28,18 @@ async def to_bytes(size, unit='gb'):
 
 
 # 获取当前剩余流量
-async def get_traffic(v2_user):
+async def get_traffic(v2_user, mode:int):
+    plan = v2_user.plan_id.transfer_enable
     traffic = await from_bytes(v2_user.transfer_enable)  # 总量
     upload = await from_bytes(v2_user.u)  # 已用上行
     download = await from_bytes(v2_user.d)  # 已用下行
     residual = traffic - upload - download  # 剩余流量
-    return round(residual, 2)
+    if mode==1:
+        return round(residual, 2)
+    elif mode==2:
+        return plan
+    else:
+        return round(residual, 2)
 
 
 # 编辑流量
@@ -41,4 +47,4 @@ async def edit_traffic(v2_user, size, unit='GB'):
     size = await to_bytes(size, unit)
     v2_user.transfer_enable += size
     v2_user.save()
-    return await get_traffic(v2_user)
+    return await get_traffic(v2_user,1)

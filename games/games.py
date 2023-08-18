@@ -18,7 +18,10 @@ async def is_forward(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user
 
 # 判断能否流量是否够玩游戏
 async def can_games(v2_user, bot_user):
-    traffic = await get_traffic(v2_user)
+    traffic = await get_traffic(v2_user,1)
+    plan = v2_user.plan_id.transfer_enable
+    if get_traffic(v2_user,2) > plan*2:
+        return f'你的流量大于计划流量{plan}GB的两倍，无法进行游戏'
     if traffic < bot_user.betting:
         return f'你的流量已不足{bot_user.betting}GB，无法进行游戏'
     else:
