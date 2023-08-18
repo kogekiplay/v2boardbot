@@ -55,6 +55,11 @@ class Config:
         rate = None
         switch = None
         to_dict = None
+    
+    class ROULETTE:
+        inttrafic = None
+        switch = None
+        to_dict = None
 
     class GAME:
         switch = None

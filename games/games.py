@@ -5,6 +5,7 @@ from Utils import START_ROUTES
 from games.utils import get_traffic, edit_traffic
 from keyboard import return_keyboard
 from models import V2User, BotUser
+import random
 
 
 # 判断是否转发消息
@@ -18,10 +19,10 @@ async def is_forward(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user
 
 # 判断能否流量是否够玩游戏
 async def can_games(v2_user, bot_user):
-    traffic = await get_traffic(v2_user,1)
+    traffic = await get_traffic(v2_user)
     plan = v2_user.plan_id.transfer_enable
-    if get_traffic(v2_user,2) > plan*2:
-        return f'你的流量大于计划流量{plan}GB的两倍，无法进行游戏'
+    if get_traffic(v2_user) > plan*2:
+        return f'你的总流量大于计划流量{plan}GB的两倍，无法进行游戏'
     if traffic < bot_user.betting:
         return f'你的流量已不足{bot_user.betting}GB，无法进行游戏'
     else:
@@ -200,6 +201,55 @@ async def bowling(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, b
         return result, START_ROUTES
     else:
         return forward, ConversationHandler.END
+    
+async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, bot_user):
+    # 开关
+    if config.ROULETTE.switch != True:
+        return '当前俄罗斯转盘游戏关闭，不可进行游戏', START_ROUTES
+
+    # 获取用户的用户名
+    user_name = update.effective_user.first_name
+    # 获取聊天的id
+    chat_id = update.effective_chat.id
+    # 如果聊天还没有开始游戏，初始化一个随机数作为子弹位置，并保存在上下文中
+    if chat_id not in context.chat_data:
+        context.chat_data[chat_id] = {
+            'bullet': random.randint(1, 7),
+            'count': 0,
+            'dead': False,
+        }
+    roulette_traffic = config.ROULETTE.inttrafic
+    # 判断能否玩游戏
+    can_game = await can_games(v2_user, bot_user)
+    if can_game != True:
+        return can_game, ConversationHandler.END
+
+    # 判断是否转发
+    forward = await is_forward(update, context, v2_user, bot_user)
+    if forward == False:
+        # 扣下注流量
+        traffic = await edit_traffic(v2_user, -roulette_traffic)
+        # 获取聊天当前的子弹位置和计数
+        bullet = context.chat_data[chat_id]['bullet']
+        current_count = context.chat_data[chat_id]['count']
+        # 计算用户发送🔫表情后的计数
+        new_count = current_count + 1
+        # 如果新计数等于子弹位置，表示用户没有中弹，设置dead为True，并回复用户
+        if new_count == bullet:
+            context.chat_data[chat_id]['dead'] = True
+            # 中奖
+            result = f'{user_name}\n恭喜你中奖了，你在第{new_count}次没有中弹。\n获得{bullet * roulette_traffic}GB流量已经存入你的账户\n当前账户流量：{await edit_traffic(v2_user, bullet * roulette_traffic)}GB'
+            # 重置子弹位置
+            context.chat_data[chat_id]['bullet'] = random.randint(1, 7)
+            context.chat_data[chat_id]['count'] = 0
+        # 如果新计数小于子弹位置，表示用户中弹并扣除流量
+        elif new_count < bullet:
+            # 没中奖
+            result = f'{user_name}\n很遗憾你中弹了，当前已开{new_count}枪。\n流量已从你账户扣除{roulette_traffic}GB\n当前账户流量：{traffic}GB'
+            context.chat_data[chat_id]['count'] = new_count
+        return result, START_ROUTES
+    else:
+        return forward, ConversationHandler.END
 
 # 用户退出游戏
 async def quit_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -334,6 +384,9 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if update.message.dice.emoji == '🎳':
         result, STATUS = await bowling(update, context, v2_user, bot_user)
+    
+    if update.message.text == "🔫":
+        result, STATUS = await roulette(update, context, v2_user, bot_user)
 
     await update.message.reply_text(text=result)
     return STATUS
