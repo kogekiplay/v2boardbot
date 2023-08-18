@@ -113,6 +113,7 @@ if __name__ == '__main__':
         CallbackQueryHandler(start_over, pattern="^start_over$"),
         MessageHandler(filters.Text(['不玩了', '退出', 'quit']), quit_game),
         MessageHandler(filters.Dice(), gambling),
+        MessageHandler(filters.Text("🔫"), gambling),
     ]
     conv_handler = ConversationHandler(
         entry_points=CommandList,
