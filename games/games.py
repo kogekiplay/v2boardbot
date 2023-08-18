@@ -360,36 +360,36 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(text='你没有开启赌博模式，是否开启？', reply_markup=reply_markup)
         return START_ROUTES
-
-    if update.message.text == "🔫":
-        result = f'暂不支持{update.message.text}玩法。'
-    else:
-        result = f'暂不支持{update.message.dice.emoji}玩法。'
+    
+    result1= f'暂不支持{update.message.text}玩法。'
     STATUS = START_ROUTES
 
     # 开始玩游戏
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
-    # 分流
-    if update.message.dice.emoji == '🎰':
-        result, STATUS = await tiger(update, context, v2_user, bot_user)
+    if update.message.dice.emoji:
+        result = f'暂不支持{update.message.dice.emoji}玩法。'
+        # 分流
+        if update.message.dice.emoji == '🎰':
+            result, STATUS = await tiger(update, context, v2_user, bot_user)
 
-    if update.message.dice.emoji == '🎲':
-        result, STATUS = await dice_(update, context, v2_user, bot_user)
+        if update.message.dice.emoji == '🎲':
+            result, STATUS = await dice_(update, context, v2_user, bot_user)
 
-    if update.message.dice.emoji == '🏀':
-        result, STATUS = await basketball(update, context, v2_user, bot_user)
+        if update.message.dice.emoji == '🏀':
+            result, STATUS = await basketball(update, context, v2_user, bot_user)
 
-    if update.message.dice.emoji == '⚽':
-        result, STATUS = await football(update, context, v2_user, bot_user)
+        if update.message.dice.emoji == '⚽':
+            result, STATUS = await football(update, context, v2_user, bot_user)
 
-    if update.message.dice.emoji == '🎯':
-        result, STATUS = await bullseye(update, context, v2_user, bot_user)
+        if update.message.dice.emoji == '🎯':
+            result, STATUS = await bullseye(update, context, v2_user, bot_user)
 
-    if update.message.dice.emoji == '🎳':
-        result, STATUS = await bowling(update, context, v2_user, bot_user)
-    
-    if update.message.text == "🔫":
-        result, STATUS = await roulette(update, context, v2_user, bot_user)
+        if update.message.dice.emoji == '🎳':
+            result, STATUS = await bowling(update, context, v2_user, bot_user)
+    else:
+        result= f'暂不支持{update.message.text}玩法。'
+        if update.message.text == "🔫":
+            result, STATUS = await roulette(update, context, v2_user, bot_user)
 
     await update.message.reply_text(text=result)
     return STATUS
