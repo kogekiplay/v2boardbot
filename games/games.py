@@ -261,7 +261,7 @@ async def quit_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     bot_user = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
     if not bot_user:
-        await update.message.reply_text('未绑定,请先绑定', reply_markup=reply_markup)
+        await update.message.reply_text('未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）', reply_markup=reply_markup)
         return START_ROUTES
     bot_user.is_game = False
     bot_user.save()
@@ -305,7 +305,7 @@ async def start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
         await query.edit_message_text(
-            text=f'未绑定,请先绑定',
+            text=f'未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）',
             reply_markup=reply_markup
         )
         return START_ROUTES
@@ -343,7 +343,7 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
         await update.message.reply_text(
-            text=f'未绑定,请先绑定',
+            text=f'未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）',
             reply_markup=reply_markup
         )
         return START_ROUTES

@@ -48,7 +48,7 @@ def _addtime(day: int):
 def _wallet(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
     text = f'''💰我的钱包
 ————————————
 钱包总额：{round((v2_user.balance + v2_user.commission_balance) / 100, 2)} 元
@@ -96,11 +96,11 @@ def _unbind(telegram_id):
 def _checkin(telegram_id):
     botuser = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
     if not botuser:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
 
     # 为了适应新版本
     if botuser.__data__.get('v2_user') == 0:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
 
     if botuser.v2_user.expired_at in [None, 0]:
         return '不限时套餐或未订阅不支持签到'
@@ -132,7 +132,7 @@ def _checkin(telegram_id):
 def _sub(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
     if v2_user.expired_at == None:
         expired_at = '∞'
         expired_time = '不限时套餐'
@@ -159,18 +159,18 @@ def _sub(telegram_id):
 def _mysub(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
     return f'您的订阅链接:{config.WEBSITE.url}/api/v1/client/subscribe?token={v2_user.token}'
 
 
 def _lucky(telegram_id):
     botuser = BotUser.select().where(BotUser.telegram_id == telegram_id).first()
     if not botuser:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
 
     # 为了适应新版本
     if botuser.__data__.get('v2_user') == 0:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
 
     if botuser.v2_user.expired_at in [None, 0]:
         return '不限时套餐或未订阅不支持签到'
@@ -201,7 +201,7 @@ def _lucky(telegram_id):
 def _traffic(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
     if v2_user.expired_at == 0:
         return '未订阅任何套餐，请先订阅'
     plan = v2_user.plan_id.transfer_enable
@@ -223,7 +223,7 @@ def _traffic(telegram_id):
 def _node(telegram_id):
     v2_user = V2User.select().where(V2User.telegram_id == telegram_id).first()
     if not v2_user:
-        return '未绑定,请先绑定'
+        return '未绑定,请先绑定\n使用 /bind 命令绑定你的订阅（仅限私聊）'
     return getNodes()
 
 
