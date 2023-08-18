@@ -359,7 +359,10 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return_keyboard,
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        await update.message.reply_text(text='你没有开启赌博模式，是否开启？', reply_markup=reply_markup)
+        await update.message.reply_text(text='你没有开启赌博模式，是否开启？（已为您设置初始下注流量为1GB）', reply_markup=reply_markup)
+        bot_user.betting = 1
+        bot_user.is_game = True
+        bot_user.save()
         return START_ROUTES
     
     # 如果update.message.dice不为None，才获取它的emoji属性
