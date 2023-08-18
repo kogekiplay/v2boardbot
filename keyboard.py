@@ -18,8 +18,8 @@ start_keyboard = [
         InlineKeyboardButton(text='🎰赌博模式🎲', callback_data='start_game'),
     ],
     [
-        InlineKeyboardButton(text='v2boardbot Ver:20230812.3 dev',
-                             url='https://github.com/v2boardbot/v2boardbot/tree/dev')
+        InlineKeyboardButton(text='v2boardbot Ver:Kogeki dev',
+                             url='https://github.com/kogekiplay/v2boardbot/tree/dev')
     ]
 ]
 keyboard_admin = [
