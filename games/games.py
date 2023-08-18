@@ -326,7 +326,7 @@ async def start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
     await query.edit_message_text(
         await query.edit_message_text(
-        text=f'请发送\\`🎰\\`或\\`🎲\\`或\\`🏀\\`或\\`⚽\\`或\\`🎳\\`或\\`🔫\\`表情（单击此处可复制表情），可以连续发送\n当前赔率:\n🎰1赔{repr(config.TIGER.rate).strip("\'")} 🏀1赔{repr(config.BASKETBALL.rate).strip("\'")}\n⚽1赔{repr(config.FOOTBALL.rate).strip("\'")} 🎯1赔{repr(config.BULLSEYE.rate).strip("\'")}\n🎳1赔{repr(config.BOWLING.rate).strip("\'")} 🔫1赔{repr(config.ROULETTE.rate).strip("\'")}\n发送\\"不玩了\\"退出赌博模式\n请选择下注流量或自定义：(不包含\\🔫)',
+        text=f'请发送`🎰`或`🎲`或`🏀`或`⚽`或`🎳`或`🔫`表情（单击此处可复制表情），可以连续发送\n当前赔率:\n🎰1赔{repr(config.TIGER.rate).strip("\'")} 🏀1赔{repr(config.BASKETBALL.rate).strip("\'")}\n⚽1赔{repr(config.FOOTBALL.rate).strip("\'")} 🎯1赔{repr(config.BULLSEYE.rate).strip("\'")}\n🎳1赔{repr(config.BOWLING.rate).strip("\'")} 🔫1赔{repr(config.ROULETTE.rate).strip("\'")}\n发送\\"不玩了\\"退出赌博模式\n请选择下注流量或自定义：(不包含\\🔫)',
         reply_markup=reply_markup,
         parse_mode='MarkdownV2'
     )
