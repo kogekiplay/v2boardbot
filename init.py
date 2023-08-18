@@ -197,6 +197,12 @@ def check_file(config_path):
                 'rate': 1.1,
             }
 
+        if not config.get('ROULETTE'):
+            config['ROULETTE'] = {
+                'switch': False,
+                'inttrafic': 5,
+            }
+
         save_config(config)
     else:
         config = {
