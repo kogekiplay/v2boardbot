@@ -362,9 +362,9 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return START_ROUTES
 
     if update.message.text == "🔫":
-        result, STATUS = await roulette(update, context, v2_user, bot_user)
-
-    result = f'暂不支持{update.message.dice.emoji}玩法。'
+        result = f'暂不支持{update.message.text}玩法。'
+    else:
+        result = f'暂不支持{update.message.dice.emoji}玩法。'
     STATUS = START_ROUTES
 
     # 开始玩游戏
@@ -388,5 +388,8 @@ async def gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.dice.emoji == '🎳':
         result, STATUS = await bowling(update, context, v2_user, bot_user)
     
+    if update.message.text == "🔫":
+        result, STATUS = await roulette(update, context, v2_user, bot_user)
+
     await update.message.reply_text(text=result)
     return STATUS
