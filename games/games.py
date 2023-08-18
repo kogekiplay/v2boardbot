@@ -291,11 +291,13 @@ async def select_flow(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return START_ROUTES
 
 
-def escape_dot (s):
-    # 定义一个函数，接受一个字符串参数s
-    # 使用re.sub()函数，将s中的所有点号替换为反斜杠加点号
-    # 返回替换后的字符串
-    return re.sub (r'\\.', r'\\\\.', s)
+def replace_dot (num):
+    # 定义一个函数，接受一个数字参数num
+    # 将数字转换成字符串
+    s = str (num)
+    # 使用replace()方法，将字符串中的点号替换成反斜杠
+    s = s.replace (".", "\\.")
+    return s
 
 # 用户准备开始游戏
 async def start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -331,7 +333,7 @@ async def start_game(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(text='当前赌博模式关闭，请联系管理员！')
         return ConversationHandler.END
     await query.edit_message_text(
-        text=f'请发送`🎰`或`🎲`或`🏀`或`⚽`或`🎳`或`🔫`表情（单击此处可复制表情），可以连续发送\n当前赔率:\n🎰1赔{config.TIGER.rate} 🏀1赔{config.BASKETBALL.rate}\n⚽1赔{config.FOOTBALL.rate} 🎯1赔{config.BULLSEYE.rate}\n🎳1赔{config.BOWLING.rate} 🔫1赔{escape_dot(str(config.ROULETTE.rate))}\n发送"不玩了"退出赌博模式\n请选择下注流量或自定义：(不包含\🔫)',
+        text=f'请发送`🎰`或`🎲`或`🏀`或`⚽`或`🎳`或`🔫`表情（单击此处可复制表情），可以连续发送\n当前赔率:\n🎰1赔{config.TIGER.rate} 🏀1赔{config.BASKETBALL.rate}\n⚽1赔{config.FOOTBALL.rate} 🎯1赔{config.BULLSEYE.rate}\n🎳1赔{config.BOWLING.rate} 🔫1赔{replace_dot(config.ROULETTE.rate)}\n发送"不玩了"退出赌博模式\n请选择下注流量或自定义：(不包含\🔫)',
         reply_markup=reply_markup,
         parse_mode='MarkdownV2'
     )
