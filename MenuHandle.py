@@ -7,6 +7,7 @@ from telegram.ext import (
     ContextTypes,
     ConversationHandler,
 )
+from games import replace_dot
 
 from Config import config
 from keyboard import return_keyboard
@@ -49,7 +50,7 @@ async def menu_gambling(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(text='当前赌博模式关闭，请联系管理员！')
         return ConversationHandler.END
     await query.edit_message_text(
-        text=f'请发送`🎰`或`🎲`或`🏀`或`⚽`或`🎳`或`🔫`表情（单击此处可复制表情），可以连续发送\n当前赔率:🎰1赔{config.TIGER.rate} 🏀1赔{config.BASKETBALL.rate}\n⚽1赔{config.FOOTBALL.rate}\n🎯1赔{config.BULLSEYE.rate}\n🎳1赔{config.BOWLING.rate}\n🔫1赔{config.ROULETTE.rate}\n发送"不玩了"退出赌博模式',
+        text=replace_dot(f'请发送`🎰`或`🎲`或`🏀`或`⚽`或`🎳`或`🔫`表情（单击此处可复制表情），可以连续发送\n当前赔率:\n🎰1赔{config.TIGER.rate} 🏀1赔{config.BASKETBALL.rate}\n⚽1赔{config.FOOTBALL.rate} 🎯1赔{config.BULLSEYE.rate}\n🎳1赔{config.BOWLING.rate} 🔫1赔{config.ROULETTE.rate}\n发送"不玩了"退出赌博模式\n请选择下注流量或自定义：（不包含\🔫）'),
         reply_markup=reply_markup,
         parse_mode='MarkdownV2'
     )
