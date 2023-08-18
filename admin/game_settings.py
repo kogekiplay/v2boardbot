@@ -94,7 +94,7 @@ async def select_game(update: Update, context: ContextTypes.DEFAULT_TYPE, game_n
     keyboard = [
         [
             InlineKeyboardButton(switch, callback_data=f'game_switch{game_name}'),
-            InlineKeyboardButton(f'📈赔率:{game_config.rate}', callback_data=f'game_rate{game_name}' if game_config.rate else game_config.inttrafic),
+            InlineKeyboardButton(f'📈赔率:{game_config.rate}', callback_data=f'game_rate{game_name}'),
         ],
         return_keyboard,
     ]

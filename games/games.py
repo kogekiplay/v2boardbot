@@ -218,7 +218,7 @@ async def roulette(update: Update, context: ContextTypes.DEFAULT_TYPE, v2_user, 
             'count': 0,
             'dead': False,
         }
-    roulette_traffic = config.ROULETTE.inttrafic
+    roulette_traffic = config.ROULETTE.rate
     # 判断能否玩游戏
     can_game = await can_games(v2_user, bot_user)
     if can_game != True:

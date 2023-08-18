@@ -200,7 +200,7 @@ def check_file(config_path):
         if not config.get('ROULETTE'):
             config['ROULETTE'] = {
                 'switch': False,
-                'inttrafic': 5,
+                'rate': 5,
             }
 
         save_config(config)

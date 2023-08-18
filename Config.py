@@ -57,7 +57,7 @@ class Config:
         to_dict = None
     
     class ROULETTE:
-        inttrafic = None
+        rate = None
         switch = None
         to_dict = None
 
