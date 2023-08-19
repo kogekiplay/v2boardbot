@@ -179,7 +179,7 @@ def _lucky(telegram_id):
     if botuser.lucky_time and (datetime.now() - botuser.lucky_time).seconds < 3600:
         return f'请{3600 - (datetime.now() - botuser.lucky_time).seconds}秒后再来抽奖哦!'
 
-    if config.TELEGRAM.lucky.find('未配置') != -1:
+    if config.TELEGRAM.lucky == None:
         return '管理员未配置抽奖信息或未开启签抽奖'
     if config.TELEGRAM.lucky == '关闭':
         return '抽奖也关闭，请联系管理员'
