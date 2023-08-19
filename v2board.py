@@ -109,7 +109,7 @@ def _checkin(telegram_id):
     if botuser.sign_time and botuser.sign_time.date() == datetime.today().date():
         return '你今天已经签到过了，明天再来哦'
 
-    if config.TELEGRAM.checkin.find('未配置') != -1:
+    if config.TELEGRAM.checkin == None:
         return '管理员未配置签到信息或未开启签到'
     if config.TELEGRAM.checkin == '关闭':
         return '签到也关闭，请联系管理员'
